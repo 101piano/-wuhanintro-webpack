@@ -3,6 +3,10 @@
 
 ##webpack打包
 ----------------------------
+1、
+```
+npm init   //生成package.json文件，
+```
 ## webpack引入jquery
 1、直接引入
 一定要先  npm install jquery --save，这样在packge.json的dependencies里面有jquery,<br>
