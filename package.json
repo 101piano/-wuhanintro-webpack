@@ -20,5 +20,9 @@
   "homepage": "https://github.com/101piano/-wuhanintro-webpack#readme",
   "devDependencies": {
     "webpack": "^2.5.1"
+  },
+  "dependencies": {
+    "expose-loader": "^0.7.3",
+    "jquery": "^3.2.1"
   }
 }

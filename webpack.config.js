@@ -1,5 +1,6 @@
 const webpack=require('webpack');
 const path=require('path');
+
 module.exports={
   entry: './js/src/index.js',
   output: {
@@ -14,10 +15,11 @@ module.exports={
           {loader:'style-loader'},
           {loader:'css-loader'}
         ]
-      },
+      }
     ]
   },
   plugins:[
+  
   ]
 
  
