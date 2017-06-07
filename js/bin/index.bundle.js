@@ -10588,32 +10588,29 @@ module.exports=GoWhere;
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
- var $=__webpack_require__(0);
+var $=__webpack_require__(0);
 
 var WaterFall=function(){
   function _WaterFall(parameters,$ct){
     this.init(parameters,$ct);
-    this.getData();
     this.bind();
   }
   _WaterFall.prototype={
     
     init: function(parameters,$ct){
-      this.ct=$ct;
-      this.parameters=parameters;
+      this.ct=$ct;     
+      this.pageIndex=parameters.pageIndex;
+      this.pageCount=parameters.pageCount;
       var imgWaterfall=this.imgWaterfall=this.ct.find('.img-waterfall'),
           ctWidth=this.ctWidth=this.ct.find('.img-waterfall').width();
           
       var nodeArr=this.nodeArr=[],
-          loadMore=this.loadMore=this.ct.find('.load-more');
-     
+          loadMore=this.loadMore=this.ct.find('.load-more');   
           
-      var isDadaArrive=true;
-        
+       this.isDataArrive=true;       
     },
     bind: function(){
       var _this=this;
-      
       _this.loadMore.on('click',function(e){
         e.preventDefault();
         if(_this.isDataArrive){
@@ -10625,29 +10622,47 @@ var WaterFall=function(){
     },
     getData: function() {   
       this.isDataArrive=false;
+      console.log(this.isDataArrive)
       var _this=this;
-      $.ajax({
-        url: 'http://platform.sina.com.cn/slide/album_tech',
-        method: 'get',
-        dataType: 'jsonp',
-        jsonp: 'jsoncallback',
+      _this.jsonp({
+        url: "https://platform.sina.com.cn/slide/album_tech",
+        method: "get",
+        dataType: "jsonp",
+        jsonp: "jsoncallback",
         data: {
-          app_key: '1271687855',
-          format: 'json',
-          size: 'img',
-          page: _this.parameters.pageIndex,
-          num: _this.parameters.pageCount
-        }
-      }).done(function(result){
-        if(result.status.code==0){
+          app_key: "1271687855",
+          format: "json",
+          size: "img",
+          page: _this.pageIndex,
+          num: _this.pageCount
+        },
+        callback: function(ret){
           _this.isDataArrive=true;
-          var nodedatas=_this.appendHtml(result.data);
+          var nodedatas=_this.appendHtml(ret.data);
           _this.isImgLoad(nodedatas);
-          _this.parameters.pageIndex++;
+          _this.pageIndex++;
         }
-      }).fail(function(){
-        alert('系统出错了');
       });
+    },
+    jsonp: function(setting){
+      setting.data = setting.data || {}    
+      setting.jsonp = setting.jsonp || 'callback'
+      setting.callback = setting.callback || function(){}
+      setting.data[setting.jsonp] = '__onGetData__'
+      
+      window.__onGetData__ = function(data) {
+        setting.callback(data);
+      }
+  
+      var script = document.createElement('script')
+      var query = []
+      for(var key in setting.data) {
+        query.push(key + '=' + encodeURIComponent(setting.data[key]))
+      }
+      script.src = setting.url + '?' +query.join('&')
+      
+      document.head.appendChild(script)
+      document.head.removeChild(script)
     },
     appendHtml: function(datas){
       var html='';
@@ -10693,7 +10708,9 @@ var WaterFall=function(){
     },
           
   }
+
   return _WaterFall;
+ 
 }();
   
   

@@ -10,7 +10,7 @@ module.exports={
   module: {
     rules: [
       {
-        test:/\.css$/,    
+        test:/\.css$/,    //文件的文件名是不是满足这个正则
         use: [
           {loader:'style-loader'},
           {loader:'css-loader'}
