@@ -18,7 +18,7 @@ var WaterFall=function(){
           loadMore=this.loadMore=this.ct.find('.load-more');
      
           
-      var isDadaArrive=true;
+      var isDataArrive=true;
         
     },
     bind: function(){
