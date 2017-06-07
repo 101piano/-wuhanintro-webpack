@@ -17,7 +17,12 @@ var WaterFall=function(){
       var nodeArr=this.nodeArr=[],
           loadMore=this.loadMore=this.ct.find('.load-more');   
           
+<<<<<<< HEAD
        this.isDataArrive=true;       
+=======
+      var isDataArrive=true;
+        
+>>>>>>> fc9858ca179fd9599ecb7bfe24c9ac72f5a688bb
     },
     bind: function(){
       var _this=this;
